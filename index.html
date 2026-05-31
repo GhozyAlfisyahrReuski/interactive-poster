@@ -42,17 +42,42 @@ body{
 
 .hotspot{
   position:absolute;
-  width:50px;
-  height:50px;
+  width:54px;
+  height:54px;
   border-radius:50%;
   border:none;
+
   background:#2962ff;
   color:white;
-  font-size:32px;
+
+  font-size:34px;
   cursor:pointer;
-  box-shadow:0 0 20px rgba(41,98,255,.8);
-  transition:.2s;
+
   z-index:100;
+
+  animation:pulse 2s infinite;
+
+  box-shadow:
+  0 0 10px #2962ff,
+  0 0 25px #2962ff,
+  0 0 40px rgba(41,98,255,.5);
+
+}
+
+@keyframes pulse{
+
+  0%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.08);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
 }
 
 .hotspot:hover{
@@ -96,12 +121,38 @@ body{
   background:#f1f1f1;
   border-radius:10px;
 }
+#fullscreen-btn{
 
+  position:fixed;
+  bottom:20px;
+  right:20px;
+
+  z-index:5000;
+
+  background:#0b57d0;
+  color:white;
+
+  border:none;
+  padding:14px 20px;
+
+  border-radius:12px;
+
+  cursor:pointer;
+
+  font-size:16px;
+
+  box-shadow:0 0 20px rgba(0,0,0,.4);
+
+}
 </style>
 </head>
 
 <body>
-
+  
+<button id="fullscreen-btn">
+⛶ Fullscreen
+</button>
+  
 <div id="viewer">
 
 <div id="poster-wrapper">
@@ -275,7 +326,31 @@ connectHotspot("hotspot1","popup1");
 connectHotspot("hotspot2","popup2");
 connectHotspot("hotspot3","popup3");
 connectHotspot("hotspot4","popup4");
+const fullscreenBtn =
+document.getElementById("fullscreen-btn");
 
+fullscreenBtn.addEventListener("click",()=>{
+
+if(!document.fullscreenElement){
+
+document.documentElement.requestFullscreen();
+
+}else{
+
+document.exitFullscreen();
+
+}
+
+});
+document.addEventListener("keydown",(e)=>{
+
+if(e.key === "r"){
+
+panzoom.reset();
+
+}
+
+});
 </script>
 
 </body>
