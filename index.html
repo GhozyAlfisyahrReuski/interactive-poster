@@ -3,29 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
   <title>Interactive Poster</title>
+
+  <!-- Panzoom Library -->
+  <script src="https://unpkg.com/@panzoom/panzoom/dist/panzoom.min.js"></script>
 
   <style>
 
     body {
       margin: 0;
+      overflow: hidden;
       background: #111;
-      display: flex;
-      justify-content: center;
-      font-family: Arial;
+      font-family: Arial, sans-serif;
     }
 
-    .poster-container {
+    #viewer {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
       position: relative;
-      width: 90vw;
-      max-width: 1000px;
-      margin: 40px auto;
     }
 
-    .poster {
-      width: 100%;
-      border-radius: 12px;
+    #poster-wrapper {
+      position: relative;
+      width: fit-content;
     }
+
+    #poster {
+      width: 1200px;
+      display: block;
+    }
+
+    /* Hotspots */
 
     .hotspot {
       position: absolute;
@@ -38,20 +48,30 @@
       font-size: 24px;
       cursor: pointer;
       box-shadow: 0 0 20px cyan;
+    }
 
+    /* Example hotspot position */
+    #hotspot1 {
       top: 35%;
       left: 60%;
     }
 
+    /* Popup */
+
     .popup {
       position: absolute;
-      top: 42%;
-      left: 65%;
-      width: 250px;
+      width: 300px;
       background: white;
+      color: black;
       padding: 16px;
       border-radius: 12px;
       display: none;
+      z-index: 999;
+    }
+
+    #popup1 {
+      top: 42%;
+      left: 65%;
     }
 
     .popup.active {
@@ -63,28 +83,57 @@
 
 <body>
 
-  <div class="poster-container">
+  <div id="viewer">
 
-    <img src="poster.png" class="poster">
+    <div id="poster-wrapper">
 
-    <button class="hotspot">+</button>
+      <img src="poster.png" id="poster"/>
 
-    <div class="popup">
-      <h2>Cognitive Offloading</h2>
-      <p>
-        AI tools may reduce sustained cognitive effort through externalized thinking processes.
-      </p>
+      <!-- HOTSPOT -->
+
+      <button class="hotspot" id="hotspot1">
+        +
+      </button>
+
+      <!-- POPUP -->
+
+      <div class="popup" id="popup1">
+
+        <h2>Cognitive Offloading</h2>
+
+        <p>
+          AI tools may reduce sustained cognitive effort
+          through externalized information processing.
+        </p>
+
+      </div>
+
     </div>
 
   </div>
 
   <script>
 
-    const hotspot = document.querySelector(".hotspot");
-    const popup = document.querySelector(".popup");
+    // Enable Zoom + Pan
 
-    hotspot.addEventListener("click", () => {
-      popup.classList.toggle("active");
+    const elem = document.getElementById('poster-wrapper');
+
+    const panzoom = Panzoom(elem, {
+      maxScale: 5,
+      minScale: 1
+    });
+
+    document
+      .getElementById('viewer')
+      .addEventListener('wheel', panzoom.zoomWithWheel);
+
+    // Popup interaction
+
+    const hotspot1 = document.getElementById("hotspot1");
+    const popup1 = document.getElementById("popup1");
+
+    hotspot1.addEventListener("click", () => {
+      popup1.classList.toggle("active");
     });
 
   </script>
