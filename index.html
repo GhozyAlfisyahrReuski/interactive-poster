@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interactive Poster</title>
+
+  <style>
+
+    body {
+      margin: 0;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      font-family: Arial;
+    }
+
+    .poster-container {
+      position: relative;
+      width: 90vw;
+      max-width: 1000px;
+      margin: 40px auto;
+    }
+
+    .poster {
+      width: 100%;
+      border-radius: 12px;
+    }
+
+    .hotspot {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: cyan;
+      color: black;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 0 20px cyan;
+
+      top: 35%;
+      left: 60%;
+    }
+
+    .popup {
+      position: absolute;
+      top: 42%;
+      left: 65%;
+      width: 250px;
+      background: white;
+      padding: 16px;
+      border-radius: 12px;
+      display: none;
+    }
+
+    .popup.active {
+      display: block;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="poster-container">
+
+    <img src="poster.png" class="poster">
+
+    <button class="hotspot">+</button>
+
+    <div class="popup">
+      <h2>Cognitive Offloading</h2>
+      <p>
+        AI tools may reduce sustained cognitive effort through externalized thinking processes.
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+
+    const hotspot = document.querySelector(".hotspot");
+    const popup = document.querySelector(".popup");
+
+    hotspot.addEventListener("click", () => {
+      popup.classList.toggle("active");
+    });
+
+  </script>
+
+</body>
+</html>
