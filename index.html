@@ -1,142 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>Interactive Poster</title>
+<title>Interactive Poster</title>
 
-  <!-- Panzoom Library -->
-  <script src="https://unpkg.com/@panzoom/panzoom/dist/panzoom.min.js"></script>
+<script src="https://unpkg.com/@panzoom/panzoom/dist/panzoom.min.js"></script>
 
-  <style>
+<style>
 
-    body {
-      margin: 0;
-      overflow: hidden;
-      background: #111;
-      font-family: Arial, sans-serif;
-    }
+body{
+  margin:0;
+  overflow:hidden;
+  background:#111;
+  font-family:Arial, sans-serif;
+}
 
-    #viewer {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      position: relative;
-    }
+/* VIEWER */
 
-    #poster-wrapper {
-      position: relative;
-      width: fit-content;
-    }
+#viewer{
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
+  cursor:grab;
+}
 
-    #poster {
-      width: 1200px;
-      display: block;
-    }
+/* POSTER */
 
-    /* Hotspots */
+#poster-wrapper{
+  position:relative;
+  width:fit-content;
+}
 
-    .hotspot {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: none;
-      background: cyan;
-      color: black;
-      font-size: 24px;
-      cursor: pointer;
-      box-shadow: 0 0 20px cyan;
-    }
+#poster{
+  width:1400px;
+  display:block;
+}
 
-    /* Example hotspot position */
-    #hotspot1 {
-      top: 35%;
-      left: 60%;
-    }
+/* HOTSPOTS */
 
-    /* Popup */
+.hotspot{
+  position:absolute;
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  border:none;
+  background:#2962ff;
+  color:white;
+  font-size:32px;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(41,98,255,.8);
+  transition:.2s;
+  z-index:100;
+}
 
-    .popup {
-      position: absolute;
-      width: 300px;
-      background: white;
-      color: black;
-      padding: 16px;
-      border-radius: 12px;
-      display: none;
-      z-index: 999;
-    }
+.hotspot:hover{
+  transform:scale(1.15);
+}
 
-    #popup1 {
-      top: 42%;
-      left: 65%;
-    }
+/* POPUP */
 
-    .popup.active {
-      display: block;
-    }
+.popup{
+  position:absolute;
+  width:320px;
+  background:white;
+  color:black;
+  padding:20px;
+  border-radius:18px;
+  display:none;
+  z-index:999;
+  box-shadow:0 10px 40px rgba(0,0,0,.4);
+}
 
-  </style>
+.popup.active{
+  display:block;
+}
+
+.popup h2{
+  margin-top:0;
+}
+
+/* LINKS */
+
+.popup a{
+  color:#2962ff;
+  text-decoration:none;
+}
+
+/* MEMBER BOX */
+
+.member{
+  margin-top:12px;
+  padding:10px;
+  background:#f1f1f1;
+  border-radius:10px;
+}
+
+</style>
 </head>
 
 <body>
 
-  <div id="viewer">
+<div id="viewer">
 
-    <div id="poster-wrapper">
+<div id="poster-wrapper">
 
-      <img src="poster.png" id="poster"/>
+<img src="poster.png" id="poster"/>
 
-      <!-- HOTSPOT -->
+<!-- ========================= -->
+<!-- BACKGROUND HOTSPOT -->
+<!-- ========================= -->
 
-      <button class="hotspot" id="hotspot1">
-        +
-      </button>
+<button class="hotspot"
+id="hotspot1"
+style="top:22%; left:22%;">
++
+</button>
 
-      <!-- POPUP -->
+<div class="popup"
+id="popup1"
+style="top:26%; left:27%;">
 
-      <div class="popup" id="popup1">
+<h2>Brief Background</h2>
 
-        <h2>Cognitive Offloading</h2>
+<p>
+Chromebooks increased accessibility to AI tools in educational settings.
+Participants highlighted how convenience may unintentionally foster dependency on AI systems.
+</p>
 
-        <p>
-          AI tools may reduce sustained cognitive effort
-          through externalized information processing.
-        </p>
+<p>
+This section explores how school-issued technology shapes learning behaviors.
+</p>
 
-      </div>
+<a href="https://www.sciencedirect.com/science/article/abs/pii/S1364661316300985" target="_blank">
+Read Source →
+</a>
 
-    </div>
+</div>
 
-  </div>
+<!-- ========================= -->
+<!-- FINDINGS HOTSPOT -->
+<!-- ========================= -->
 
-  <script>
+<button class="hotspot"
+id="hotspot2"
+style="top:22%; left:92%;">
++
+</button>
 
-    // Enable Zoom + Pan
+<div class="popup"
+id="popup2"
+style="top:28%; left:67%;">
 
-    const elem = document.getElementById('poster-wrapper');
+<h2>Main Findings</h2>
 
-    const panzoom = Panzoom(elem, {
-      maxScale: 5,
-      minScale: 1
-    });
+<p>
+Students frequently use AI for:
+</p>
 
-    document
-      .getElementById('viewer')
-      .addEventListener('wheel', panzoom.zoomWithWheel);
+<ul>
+<li>Information searching</li>
+<li>Summarizing</li>
+<li>Assignment creation</li>
+<li>Lesson preparation</li>
+</ul>
 
-    // Popup interaction
+<p>
+Teachers reported increased AI accessibility through Chromebooks.
+</p>
 
-    const hotspot1 = document.getElementById("hotspot1");
-    const popup1 = document.getElementById("popup1");
+</div>
 
-    hotspot1.addEventListener("click", () => {
-      popup1.classList.toggle("active");
-    });
+<!-- ========================= -->
+<!-- ANALYSIS HOTSPOT -->
+<!-- ========================= -->
 
-  </script>
+<button class="hotspot"
+id="hotspot3"
+style="top:45%; left:92%;">
++
+</button>
+
+<div class="popup"
+id="popup3"
+style="top:50%; left:67%;">
+
+<h2>Cognitive Offloading</h2>
+
+<p>
+Participants often relied on AI to complete thinking-heavy tasks,
+reducing opportunities for sustained cognitive engagement.
+</p>
+
+<p>
+This reflects the concept of cognitive offloading —
+externalizing mental processes onto technology.
+</p>
+
+</div>
+
+<!-- ========================= -->
+<!-- MEMBERS HOTSPOT -->
+<!-- ========================= -->
+
+<button class="hotspot"
+id="hotspot4"
+style="top:95%; left:22%;">
++
+</button>
+
+<div class="popup"
+id="popup4"
+style="top:70%; left:10%;">
+
+<h2>Research Members</h2>
+
+<div class="member">
+<strong>Ghozy Reuski</strong><br>
+Research & Poster Design
+</div>
+
+<div class="member">
+<strong>Team Member 2</strong><br>
+Interview Analysis
+</div>
+
+<div class="member">
+<strong>Team Member 3</strong><br>
+Literature Review
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ========================= */
+/* ZOOM */
+/* ========================= */
+
+const elem = document.getElementById('poster-wrapper');
+
+const panzoom = Panzoom(elem,{
+  maxScale:5,
+  minScale:1
+});
+
+document
+.getElementById('viewer')
+.addEventListener('wheel', panzoom.zoomWithWheel);
+
+/* ========================= */
+/* HOTSPOTS */
+/* ========================= */
+
+function connectHotspot(buttonId,popupId){
+
+const button = document.getElementById(buttonId);
+const popup = document.getElementById(popupId);
+
+button.addEventListener("click",()=>{
+
+popup.classList.toggle("active");
+
+});
+
+}
+
+connectHotspot("hotspot1","popup1");
+connectHotspot("hotspot2","popup2");
+connectHotspot("hotspot3","popup3");
+connectHotspot("hotspot4","popup4");
+
+</script>
 
 </body>
 </html>
