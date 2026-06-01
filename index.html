@@ -322,9 +322,8 @@ cognitive engagement.
 <!-- ========================= -->
 <!-- REFERENCES -->
 <!-- ========================= -->
-
 <!-- ========================= -->
-<!-- A3 REFERENCES (HOVER CARD VERSION) -->
+<!-- A3 POSTER REFERENCES (CLICK EXPAND VERSION) -->
 <!-- ========================= -->
 
 <style>
@@ -351,13 +350,14 @@ cognitive engagement.
   }
 
   .refs {
-    padding: 16px 20px;
+    padding: 16px 18px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     overflow: hidden;
   }
 
+  /* CLICKABLE CARD */
   .ref {
     border-left: 4px solid #333;
     background: #fafafa;
@@ -365,33 +365,33 @@ cognitive engagement.
     border-radius: 6px;
     font-size: 11.5px;
     line-height: 1.4;
-
-    max-height: 60px;
-    overflow: hidden;
-    transition: all 0.25s ease;
     cursor: pointer;
+
+    max-height: 52px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
   }
 
   .ref:hover {
-    max-height: 200px;
     background: #f0f0f0;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   }
 
-  .ref a {
-    color: #1a0dab;
-    text-decoration: none;
-    word-break: break-all;
-    font-size: 11px;
-  }
-
-  .ref a:hover {
-    text-decoration: underline;
+  .ref.expanded {
+    max-height: 220px;
+    background: #f3f3f3;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
   }
 
   .title {
     font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .hint {
+    font-size: 10px;
+    color: #666;
+    margin-top: 6px;
   }
 </style>
 
@@ -403,103 +403,79 @@ cognitive engagement.
 
   <div class="refs">
 
-    <div class="ref">
+    <div class="ref" onclick="openLink('https://doi.org/10.1080/15236803.2006.12001436')">
       <div class="title">Andersen et al. (2006)</div>
-      Systems thinking in strategic planning education and practice. Journal of Public Affairs Education.
-      <br>
-      <a href="https://doi.org/10.1080/15236803.2006.12001436" target="_blank">
-        DOI link
-      </a>
+      Systems thinking in strategic planning education and practice.
+      <div class="hint">Click to open source</div>
     </div>
 
-    <div class="ref">
+    <div class="ref" onclick="openLink('https://doi.org/10.1007/s13347-022-00550-2')">
       <div class="title">Danaher (2022)</div>
-      Techno-optimism analysis and critique in Philosophy & Technology.
-      <br>
-      <a href="https://doi.org/10.1007/s13347-022-00550-2" target="_blank">
-        DOI link
-      </a>
+      Techno-optimism analysis in Philosophy & Technology.
+      <div class="hint">Click to open source</div>
     </div>
 
-    <div class="ref">
+    <div class="ref" onclick="openLink('https://doi.org/10.1080/00220272.2024.2334937')">
       <div class="title">Dessingué & Wagner (2025)</div>
-      Dialogical critical thinking in education contexts.
-      <br>
-      <a href="https://doi.org/10.1080/00220272.2024.2334937" target="_blank">
-        DOI link
-      </a>
+      Dialogical critical thinking in education.
+      <div class="hint">Click to open source</div>
     </div>
 
-    <div class="ref">
+    <div class="ref" onclick="openLink('https://doi.org/10.1080/15512169.2022.2121713')">
       <div class="title">Drmola & Kraus (2023)</div>
-      Interactive game-based strategic thinking education.
-      <br>
-      <a href="https://doi.org/10.1080/15512169.2022.2121713" target="_blank">
-        DOI link
-      </a>
+      Game-based strategic thinking education.
+      <div class="hint">Click to open source</div>
     </div>
 
-    <div class="ref">
+    <div class="ref" onclick="openLink('https://doi.org/10.31537/ej.v10i1.2958')">
       <div class="title">Meivawati et al. (2026)</div>
       AI acceptance among pre-service teachers.
-      <br>
-      <a href="https://doi.org/10.31537/ej.v10i1.2958" target="_blank">
-        DOI link
-      </a>
+      <div class="hint">Click to open source</div>
     </div>
 
-    <div class="ref">
+    <div class="ref" onclick="openLink('https://doi.org/10.1017/CBO9780511816833.020')">
       <div class="title">Krajcik & Blumenfeld (2006)</div>
-      Project-based learning in learning sciences.
-      <br>
-      <a href="https://doi.org/10.1017/CBO9780511816833.020" target="_blank">
-        DOI link
-      </a>
+      Project-based learning framework.
+      <div class="hint">Click to open source</div>
     </div>
 
-    <div class="ref">
+    <div class="ref" onclick="openLink('https://doi.org/10.1016/j.actpsy.2026.106856')">
       <div class="title">Ren et al. (2026)</div>
-      Cognitive dissonance in AI + academic/work contexts.
-      <br>
-      <a href="https://doi.org/10.1016/j.actpsy.2026.106856" target="_blank">
-        DOI link
-      </a>
+      Cognitive dissonance in AI use.
+      <div class="hint">Click to open source</div>
     </div>
 
-    <div class="ref">
+    <div class="ref" onclick="openLink('https://doi.org/10.1016/j.tics.2016.07.002')">
       <div class="title">Risko & Gilbert (2016)</div>
-      Cognitive offloading theory in cognitive science.
-      <br>
-      <a href="https://doi.org/10.1016/j.tics.2016.07.002" target="_blank">
-        DOI link
-      </a>
+      Cognitive offloading theory.
+      <div class="hint">Click to open source</div>
     </div>
 
     <div class="ref">
       <div class="title">Santrock (2006)</div>
-      Educational psychology textbook.
+      Educational Psychology (textbook).
     </div>
 
-    <div class="ref">
+    <div class="ref" onclick="openLink('https://doi.org/10.1016/j.tate.2017.02.004')">
       <div class="title">Schiefele (2017)</div>
-      Teacher motivation and student motivation mediation.
-      <br>
-      <a href="https://doi.org/10.1016/j.tate.2017.02.004" target="_blank">
-        DOI link
-      </a>
+      Teacher motivation & student motivation.
+      <div class="hint">Click to open source</div>
     </div>
 
-    <div class="ref">
+    <div class="ref" onclick="openLink('https://doi.org/10.1016/j.actpsy.2026.106531')">
       <div class="title">Zheng & Wang (2026)</div>
-      Generative AI + cognitive dissonance in EFL learning.
-      <br>
-      <a href="https://doi.org/10.1016/j.actpsy.2026.106531" target="_blank">
-        DOI link
-      </a>
+      Generative AI in EFL learning contexts.
+      <div class="hint">Click to open source</div>
     </div>
 
   </div>
 </div>
+
+<script>
+function openLink(url) {
+  window.open(url, "_blank");
+}
+</script>
 <!-- ========================= -->
 <!-- MEMBERS -->
 <!-- ========================= -->
