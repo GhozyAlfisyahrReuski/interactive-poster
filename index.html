@@ -70,24 +70,37 @@ header p{
 /* POSTER */
 /* ========================= */
 
-.poster-container{
+/* ========================= */
+/* POSTER VIEWER */
+/* ========================= */
+
+#poster-viewer{
+
+  width:100%;
+
+  height:85vh;
+
+  overflow:hidden;
+
+  background:#111;
+
+  border-radius:24px;
 
   position:relative;
 
-  margin:auto;
+  cursor:grab;
 
-  width:90%;
-  max-width:1200px;
-
-  transition:.3s ease;
+  box-shadow:0 10px 40px rgba(0,0,0,.2);
 
 }
 
-.poster-container.zoomed{
+/* POSTER */
 
-  transform:scale(1.7);
+#posterContainer{
 
-  z-index:1000;
+  width:fit-content;
+
+  margin:auto;
 
 }
 
@@ -95,14 +108,17 @@ header p{
 
 .poster{
 
-  width:100%;
+  width:1400px;
 
-  border-radius:20px;
+  max-width:none;
 
-  box-shadow:0 10px 40px rgba(0,0,0,.25);
+  display:block;
+
+  user-select:none;
+
+  pointer-events:none;
 
 }
-
 /* ========================= */
 /* BUTTONS */
 /* ========================= */
@@ -284,7 +300,7 @@ header p{
 
 }
 </style>
-
+<script src="https://unpkg.com/@panzoom/panzoom/dist/panzoom.min.js"></script>
 </head>
 
 <body>
@@ -317,13 +333,26 @@ Double click the poster to zoom in.
 
 <section class="section">
 
-<div class="poster-container"
-id="posterContainer">
+<h2 style="
+text-align:center;
+margin-bottom:30px;
+font-size:40px;
+">
+
+Interactive Poster Viewer
+
+</h2>
+
+<div id="poster-viewer">
+
+<div id="posterContainer">
 
 <img
 src="poster.png"
 class="poster"
 />
+
+</div>
 
 </div>
 
@@ -511,32 +540,6 @@ id="assistant"
 <script>
 
 /* ========================= */
-/* POSTER ZOOM */
-/* ========================= */
-
-const poster =
-document.getElementById("posterContainer");
-
-const zoomOut =
-document.getElementById("zoomOut");
-
-poster.addEventListener("dblclick",()=>{
-
-poster.classList.add("zoomed");
-
-zoomOut.style.display = "block";
-
-});
-
-zoomOut.addEventListener("click",()=>{
-
-poster.classList.remove("zoomed");
-
-zoomOut.style.display = "none";
-
-});
-
-/* ========================= */
 /* ASSISTANT */
 /* ========================= */
 
@@ -551,7 +554,65 @@ assistant.addEventListener("click",()=>{
 assistantPopup.classList.toggle("active");
 
 });
+/* ========================= */
+/* PANZOOM */
+/* ========================= */
 
+const elem =
+document.getElementById('posterContainer');
+
+const panzoom =
+Panzoom(elem,{
+
+  maxScale:5,
+  minScale:1,
+
+  contain:'outside'
+
+});
+
+const parent =
+document.getElementById('poster-viewer');
+
+/* SCROLL ZOOM */
+
+parent.addEventListener(
+'wheel',
+panzoom.zoomWithWheel
+);
+
+/* DOUBLE CLICK ZOOM */
+
+parent.addEventListener(
+'dblclick',
+()=>{
+
+panzoom.zoomIn();
+
+}
+);
+
+/* DRAG */
+
+parent.addEventListener(
+'pointerdown',
+panzoom.handleDown
+);
+
+/* RESET BUTTON */
+
+const zoomOut =
+document.getElementById("zoomOut");
+
+zoomOut.style.display = "block";
+
+zoomOut.innerText = "Reset View";
+
+zoomOut.addEventListener("click",()=>{
+
+panzoom.reset();
+
+});
 </script>
 
 </body>
