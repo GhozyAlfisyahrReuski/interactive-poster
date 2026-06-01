@@ -1,364 +1,434 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Interactive Poster</title>
+<meta charset="UTF-8"/>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
 
-<script src="https://unpkg.com/@panzoom/panzoom/dist/panzoom.min.js"></script>
+<title>Interactive Research Poster</title>
 
 <style>
 
+/* ========================= */
+/* BODY */
+/* ========================= */
+
 body{
   margin:0;
-  overflow:hidden;
-  background:#111;
-  font-family:Arial, sans-serif;
+  background:#f4f4f4;
+  font-family:Arial,sans-serif;
+  overflow-x:hidden;
 }
 
-/* VIEWER */
+/* ========================= */
+/* HEADER */
+/* ========================= */
 
-#viewer{
-  width:100vw;
+header{
+
   height:100vh;
-  overflow:hidden;
-  cursor:grab;
+
+  display:flex;
+  flex-direction:column;
+
+  justify-content:center;
+  align-items:center;
+
+  text-align:center;
+
+  background:#111;
+  color:white;
+
+  padding:40px;
+
 }
 
+header h1{
+  font-size:64px;
+  margin-bottom:20px;
+}
+
+header p{
+  max-width:700px;
+  line-height:1.7;
+  opacity:.8;
+}
+
+/* ========================= */
+/* SECTION */
+/* ========================= */
+
+.section{
+
+  padding:80px 10vw;
+
+}
+
+/* ========================= */
 /* POSTER */
+/* ========================= */
 
-#poster-wrapper{
+.poster-container{
+
   position:relative;
-  width:fit-content;
+
+  margin:auto;
+
+  width:90%;
+  max-width:1200px;
+
+  transition:.3s ease;
+
 }
 
-#poster{
-  width:1400px;
-  display:block;
+.poster-container.zoomed{
+
+  transform:scale(1.7);
+
+  z-index:1000;
+
 }
 
-/* HOTSPOTS */
+/* IMAGE */
 
-.hotspot{
-  position:absolute;
-  width:54px;
-  height:54px;
-  border-radius:50%;
-  border:none;
+.poster{
+
+  width:100%;
+
+  border-radius:20px;
+
+  box-shadow:0 10px 40px rgba(0,0,0,.25);
+
+}
+
+/* ========================= */
+/* BUTTONS */
+/* ========================= */
+
+.zoom-out{
+
+  position:fixed;
+
+  top:20px;
+  right:20px;
+
+  z-index:9999;
 
   background:#2962ff;
   color:white;
 
-  font-size:34px;
-  cursor:pointer;
-
-  z-index:100;
-
-  animation:pulse 2s infinite;
-
-  box-shadow:
-  0 0 10px #2962ff,
-  0 0 25px #2962ff,
-  0 0 40px rgba(41,98,255,.5);
-
-}
-
-@keyframes pulse{
-
-  0%{
-    transform:scale(1);
-  }
-
-  50%{
-    transform:scale(1.08);
-  }
-
-  100%{
-    transform:scale(1);
-  }
-
-}
-
-.hotspot:hover{
-  transform:scale(1.15);
-}
-
-/* POPUP */
-
-.popup{
-  position:absolute;
-  width:320px;
-  background:white;
-  color:black;
-  padding:20px;
-  border-radius:18px;
-  display:none;
-  z-index:999;
-  box-shadow:0 10px 40px rgba(0,0,0,.4);
-}
-
-.popup.active{
-  display:block;
-}
-
-.popup h2{
-  margin-top:0;
-}
-
-/* LINKS */
-
-.popup a{
-  color:#2962ff;
-  text-decoration:none;
-}
-
-/* MEMBER BOX */
-
-.member{
-  margin-top:12px;
-  padding:10px;
-  background:#f1f1f1;
-  border-radius:10px;
-}
-#fullscreen-btn{
-
-  position:fixed;
-  bottom:20px;
-  right:20px;
-
-  z-index:5000;
-
-  background:#0b57d0;
-  color:white;
-
   border:none;
+
   padding:14px 20px;
 
   border-radius:12px;
 
   cursor:pointer;
 
-  font-size:16px;
-
-  box-shadow:0 0 20px rgba(0,0,0,.4);
+  display:none;
 
 }
+
+/* ========================= */
+/* CARDS */
+/* ========================= */
+
+.card{
+
+  background:white;
+
+  padding:30px;
+
+  border-radius:18px;
+
+  margin-top:40px;
+
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+  line-height:1.7;
+
+}
+
+/* ========================= */
+/* ASSISTANT */
+/* ========================= */
+
+#assistant{
+
+  position:fixed;
+
+  bottom:20px;
+  left:20px;
+
+  width:120px;
+
+  z-index:5000;
+
+  cursor:pointer;
+
+  animation:float 3s ease-in-out infinite;
+
+}
+
+@keyframes float{
+
+  0%{
+    transform:translateY(0px);
+  }
+
+  50%{
+    transform:translateY(-10px);
+  }
+
+  100%{
+    transform:translateY(0px);
+  }
+
+}
+
+/* POPUP */
+
+#assistant-popup{
+
+  position:fixed;
+
+  bottom:160px;
+  left:20px;
+
+  width:260px;
+
+  background:white;
+
+  padding:20px;
+
+  border-radius:18px;
+
+  display:none;
+
+  z-index:5001;
+
+  box-shadow:0 10px 40px rgba(0,0,0,.25);
+
+}
+
+#assistant-popup.active{
+
+  display:block;
+
+}
+
 </style>
+
 </head>
 
 <body>
-  
-<button id="fullscreen-btn">
-⛶ Fullscreen
-</button>
-  
-<div id="viewer">
-
-<div id="poster-wrapper">
-
-<img src="poster.png" id="poster"/>
 
 <!-- ========================= -->
-<!-- BACKGROUND HOTSPOT -->
+<!-- HEADER -->
 <!-- ========================= -->
 
-<button class="hotspot"
-id="hotspot1"
-style="top:22%; left:22%;">
-+
-</button>
+<header>
 
-<div class="popup"
-id="popup1"
-style="top:26%; left:27%;">
-
-<h2>Brief Background</h2>
+<h1>
+AI & Cognitive Engagement
+</h1>
 
 <p>
-Chromebooks increased accessibility to AI tools in educational settings.
-Participants highlighted how convenience may unintentionally foster dependency on AI systems.
+An interactive research poster exploring cognitive offloading,
+AI dependency, and educational technology integration.
 </p>
 
 <p>
-This section explores how school-issued technology shapes learning behaviors.
+Scroll down to explore the project.
+Double click the poster to zoom in.
 </p>
 
-<a href="https://www.sciencedirect.com/science/article/abs/pii/S1364661316300985" target="_blank">
-Read Source →
-</a>
+</header>
+
+<!-- ========================= -->
+<!-- POSTER -->
+<!-- ========================= -->
+
+<section class="section">
+
+<div class="poster-container"
+id="posterContainer">
+
+<img
+src="poster.png"
+class="poster"
+/>
 
 </div>
 
-<!-- ========================= -->
-<!-- FINDINGS HOTSPOT -->
-<!-- ========================= -->
+</section>
 
-<button class="hotspot"
-id="hotspot2"
-style="top:22%; left:92%;">
-+
+<!-- ZOOM OUT -->
+
+<button
+class="zoom-out"
+id="zoomOut">
+
+Zoom Out
+
 </button>
 
-<div class="popup"
-id="popup2"
-style="top:28%; left:67%;">
+<!-- ========================= -->
+<!-- FINDINGS -->
+<!-- ========================= -->
+
+<section class="section">
+
+<div class="card">
 
 <h2>Main Findings</h2>
 
 <p>
-Students frequently use AI for:
+Students frequently used AI tools for:
 </p>
 
 <ul>
+
 <li>Information searching</li>
-<li>Summarizing</li>
+<li>Summarization</li>
 <li>Assignment creation</li>
-<li>Lesson preparation</li>
+<li>Lesson planning</li>
+
 </ul>
 
 <p>
-Teachers reported increased AI accessibility through Chromebooks.
+Teachers highlighted how Chromebook integration
+normalized AI-assisted learning practices.
 </p>
 
 </div>
 
-<!-- ========================= -->
-<!-- ANALYSIS HOTSPOT -->
-<!-- ========================= -->
-
-<button class="hotspot"
-id="hotspot3"
-style="top:45%; left:92%;">
-+
-</button>
-
-<div class="popup"
-id="popup3"
-style="top:50%; left:67%;">
+<div class="card">
 
 <h2>Cognitive Offloading</h2>
 
 <p>
-Participants often relied on AI to complete thinking-heavy tasks,
-reducing opportunities for sustained cognitive engagement.
-</p>
-
-<p>
-This reflects the concept of cognitive offloading —
-externalizing mental processes onto technology.
+Participants externalized thinking-heavy processes
+onto AI systems, potentially reducing sustained
+cognitive engagement.
 </p>
 
 </div>
 
+</section>
+
 <!-- ========================= -->
-<!-- MEMBERS HOTSPOT -->
+<!-- REFERENCES -->
 <!-- ========================= -->
 
-<button class="hotspot"
-id="hotspot4"
-style="top:95%; left:22%;">
-+
-</button>
+<section class="section">
 
-<div class="popup"
-id="popup4"
-style="top:70%; left:10%;">
+<div class="card">
+
+<h2>References</h2>
+
+<p>
+
+<a href="https://www.sciencedirect.com/science/article/abs/pii/S1364661316300985"
+target="_blank">
+
+Cognitive Offloading Journal →
+
+</a>
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- MEMBERS -->
+<!-- ========================= -->
+
+<section class="section">
+
+<div class="card">
 
 <h2>Research Members</h2>
 
-<div class="member">
-<strong>Azhelia Rheinendra
-</div>
-  
-<div class="member">
-<strong>Ghozy Alfisyahr Reuski
-</div>
-
-<div class="member">
-<strong>Maria Indisari
-</div>
-
-<div class="member">
-<strong>Nazira Alya
-</div>
+<p><strong>Ghozy Reuski</strong> — Research & Design</p>
+<p><strong>Member 2</strong> — Literature Review</p>
+<p><strong>Member 3</strong> — Interview Analysis</p>
 
 </div>
 
-</div>
+</section>
+
+<!-- ========================= -->
+<!-- ASSISTANT -->
+<!-- ========================= -->
+
+<img
+src="assistant.gif"
+id="assistant"
+/>
+
+<div id="assistant-popup">
+
+<h2>Navigation Help</h2>
+
+<ul>
+
+<li>Scroll to explore</li>
+<li>Double click poster to zoom in</li>
+<li>Click Zoom Out to reset</li>
+
+</ul>
 
 </div>
 
 <script>
-document
-.getElementById('viewer')
-.addEventListener('dblclick', () => {
 
-panzoom.zoomOut();
+/* ========================= */
+/* POSTER ZOOM */
+/* ========================= */
+
+const poster =
+document.getElementById("posterContainer");
+
+const zoomOut =
+document.getElementById("zoomOut");
+
+poster.addEventListener("dblclick",()=>{
+
+poster.classList.add("zoomed");
+
+zoomOut.style.display = "block";
+
+});
+
+zoomOut.addEventListener("click",()=>{
+
+poster.classList.remove("zoomed");
+
+zoomOut.style.display = "none";
 
 });
 
 /* ========================= */
-/* ZOOM */
+/* ASSISTANT */
 /* ========================= */
 
-const elem = document.getElementById('poster-wrapper');
+const assistant =
+document.getElementById("assistant");
 
-const panzoom = Panzoom(elem,{
-  maxScale:5,
-  minScale:1
-});
+const assistantPopup =
+document.getElementById("assistant-popup");
 
-document
-.getElementById('viewer')
-.addEventListener('wheel', panzoom.zoomWithWheel);
+assistant.addEventListener("click",()=>{
 
-/* ========================= */
-/* HOTSPOTS */
-/* ========================= */
-
-function connectHotspot(buttonId,popupId){
-
-const button = document.getElementById(buttonId);
-const popup = document.getElementById(popupId);
-
-button.addEventListener("click",()=>{
-
-popup.classList.toggle("active");
+assistantPopup.classList.toggle("active");
 
 });
 
-}
-
-connectHotspot("hotspot1","popup1");
-connectHotspot("hotspot2","popup2");
-connectHotspot("hotspot3","popup3");
-connectHotspot("hotspot4","popup4");
-const fullscreenBtn =
-document.getElementById("fullscreen-btn");
-
-fullscreenBtn.addEventListener("click",()=>{
-
-if(!document.fullscreenElement){
-
-document.documentElement.requestFullscreen();
-
-}else{
-
-document.exitFullscreen();
-
-}
-
-});
-document.addEventListener("keydown",(e)=>{
-
-if(e.key === "r"){
-
-panzoom.reset();
-
-}
-
-});
 </script>
 
 </body>
