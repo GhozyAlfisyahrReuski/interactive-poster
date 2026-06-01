@@ -218,7 +218,71 @@ header p{
   display:block;
 
 }
+/* ========================= */
+/* HORIZONTAL SLIDER */
+/* ========================= */
 
+.slider-container{
+
+  overflow-x:auto;
+
+  padding-bottom:20px;
+
+  scroll-snap-type:x mandatory;
+
+}
+
+.slider{
+
+  display:flex;
+
+  gap:24px;
+
+  width:max-content;
+
+}
+
+.slide{
+
+  width:320px;
+
+  background:white;
+
+  padding:30px;
+
+  border-radius:20px;
+
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+  scroll-snap-align:start;
+
+  flex-shrink:0;
+
+  transition:.25s;
+
+}
+
+.slide:hover{
+
+  transform:translateY(-8px);
+
+}
+
+/* SCROLLBAR */
+
+.slider-container::-webkit-scrollbar{
+
+  height:12px;
+
+}
+
+.slider-container::-webkit-scrollbar-thumb{
+
+  background:#2962ff;
+
+  border-radius:999px;
+
+}
 </style>
 
 </head>
@@ -322,6 +386,65 @@ cognitive engagement.
 <!-- ========================= -->
 <!-- REFERENCES -->
 <!-- ========================= -->
+<section class="section">
+
+<h2 style="margin-bottom:30px;">
+Research Highlights
+</h2>
+
+<div class="slider-container">
+
+<div class="slider">
+
+<div class="slide">
+
+<h3>Cognitive Offloading</h3>
+
+<p>
+AI externalizes cognitive tasks,
+reducing sustained mental engagement.
+</p>
+
+</div>
+
+<div class="slide">
+
+<h3>AI Accessibility</h3>
+
+<p>
+School-issued Chromebooks normalized
+daily AI usage among students.
+</p>
+
+</div>
+
+<div class="slide">
+
+<h3>Critical Thinking</h3>
+
+<p>
+Teachers emphasized supervised AI use
+to maintain analytical skills.
+</p>
+
+</div>
+
+<div class="slide">
+
+<h3>Future Concerns</h3>
+
+<p>
+Overreliance on AI may contribute
+to dependency in academic settings.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
 
 <section class="section">
 
