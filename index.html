@@ -324,168 +324,182 @@ cognitive engagement.
 <!-- ========================= -->
 
 <!-- ========================= -->
-<!-- A3 POSTER REFERENCES PANEL -->
+<!-- A3 REFERENCES (HOVER CARD VERSION) -->
 <!-- ========================= -->
 
 <style>
   .a3-poster {
     width: 297mm;
     height: 420mm;
-    margin: 0 auto;
+    margin: auto;
     background: white;
     border: 2px solid #ddd;
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
+  }
+
+  .header {
+    padding: 14px 20px;
+    border-bottom: 2px solid #eee;
+    background: #f5f5f5;
+  }
+
+  .header h2 {
+    margin: 0;
+    font-size: 20px;
+  }
+
+  .refs {
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
     overflow: hidden;
   }
 
-  .poster-header {
-    padding: 16px 24px;
-    border-bottom: 2px solid #eee;
-    background: #f7f7f7;
-  }
-
-  .poster-header h2 {
-    margin: 0;
-    font-size: 22px;
-    letter-spacing: 1px;
-  }
-
-  .scroll-area {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px 28px;
-  }
-
-  .ref-card {
-    margin-bottom: 14px;
-    padding: 12px 14px;
+  .ref {
     border-left: 4px solid #333;
     background: #fafafa;
+    padding: 10px 12px;
     border-radius: 6px;
-    font-size: 12.5px;
-    line-height: 1.5;
+    font-size: 11.5px;
+    line-height: 1.4;
+
+    max-height: 60px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    cursor: pointer;
   }
 
-  .ref-card a {
+  .ref:hover {
+    max-height: 200px;
+    background: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  }
+
+  .ref a {
     color: #1a0dab;
     text-decoration: none;
     word-break: break-all;
+    font-size: 11px;
   }
 
-  .ref-card a:hover {
+  .ref a:hover {
     text-decoration: underline;
+  }
+
+  .title {
+    font-weight: 600;
   }
 </style>
 
 <div class="a3-poster">
 
-  <div class="poster-header">
+  <div class="header">
     <h2>References</h2>
   </div>
 
-  <div class="scroll-area">
+  <div class="refs">
 
-    <div class="ref-card">
-      Andersen, D. F., Bryson, J. M., Richardson, G. P., Ackermann, F., Eden, C., & Finn, C. B. (2006). 
-      Integrating Modes of Systems Thinking into Strategic Planning Education and Practice. 
-      <i>Journal of Public Affairs Education</i>, 12(3), 265–293. 
+    <div class="ref">
+      <div class="title">Andersen et al. (2006)</div>
+      Systems thinking in strategic planning education and practice. Journal of Public Affairs Education.
       <br>
       <a href="https://doi.org/10.1080/15236803.2006.12001436" target="_blank">
-        https://doi.org/10.1080/15236803.2006.12001436
+        DOI link
       </a>
     </div>
 
-    <div class="ref-card">
-      Danaher, J. (2022). Techno-optimism: An analysis, an evaluation and a modest defence. 
-      <i>Philosophy & Technology</i>, 35(54). 
+    <div class="ref">
+      <div class="title">Danaher (2022)</div>
+      Techno-optimism analysis and critique in Philosophy & Technology.
       <br>
       <a href="https://doi.org/10.1007/s13347-022-00550-2" target="_blank">
-        https://doi.org/10.1007/s13347-022-00550-2
+        DOI link
       </a>
     </div>
 
-    <div class="ref-card">
-      Dessingué, A., & Wagner, D. A. (2025). Promoting dialogical critical thinking in education. 
-      <i>Journal of Curriculum Studies</i>, 57(2), 184–202. 
+    <div class="ref">
+      <div class="title">Dessingué & Wagner (2025)</div>
+      Dialogical critical thinking in education contexts.
       <br>
       <a href="https://doi.org/10.1080/00220272.2024.2334937" target="_blank">
-        https://doi.org/10.1080/00220272.2024.2334937
+        DOI link
       </a>
     </div>
 
-    <div class="ref-card">
-      Drmola, J., & Kraus, J. (2023). Interactive Game for Strategic Thinking Education. 
-      <i>Journal of Political Science Education</i>, 19(2), 321–330. 
+    <div class="ref">
+      <div class="title">Drmola & Kraus (2023)</div>
+      Interactive game-based strategic thinking education.
       <br>
       <a href="https://doi.org/10.1080/15512169.2022.2121713" target="_blank">
-        https://doi.org/10.1080/15512169.2022.2121713
+        DOI link
       </a>
     </div>
 
-    <div class="ref-card">
-      Meivawati, E., Noviana, E., Pratama, I. P. Y., Qudratuddarsi, H., & Indriyanti, N. (2026). 
-      Innovativeness and Optimism as Predictors of Generative AI Acceptance. 
-      <i>Education Journal</i>, 10(1), 37–52. 
+    <div class="ref">
+      <div class="title">Meivawati et al. (2026)</div>
+      AI acceptance among pre-service teachers.
       <br>
       <a href="https://doi.org/10.31537/ej.v10i1.2958" target="_blank">
-        https://doi.org/10.31537/ej.v10i1.2958
+        DOI link
       </a>
     </div>
 
-    <div class="ref-card">
-      Krajcik, J., & Blumenfeld, P. (2006). Project-based learning. In Sawyer (Ed.), 
-      <i>Cambridge Handbook of the Learning Sciences</i>. 
+    <div class="ref">
+      <div class="title">Krajcik & Blumenfeld (2006)</div>
+      Project-based learning in learning sciences.
       <br>
       <a href="https://doi.org/10.1017/CBO9780511816833.020" target="_blank">
-        https://doi.org/10.1017/CBO9780511816833.020
+        DOI link
       </a>
     </div>
 
-    <div class="ref-card">
-      Ren, X., Wang, R., & Zhang, S. (2026). Cognitive dissonance and emotional regulation in AI use. 
-      <i>Acta Psychologica</i>, 266, 106856. 
+    <div class="ref">
+      <div class="title">Ren et al. (2026)</div>
+      Cognitive dissonance in AI + academic/work contexts.
       <br>
       <a href="https://doi.org/10.1016/j.actpsy.2026.106856" target="_blank">
-        https://doi.org/10.1016/j.actpsy.2026.106856
+        DOI link
       </a>
     </div>
 
-    <div class="ref-card">
-      Risko, E. F., & Gilbert, S. J. (2016). Cognitive offloading. 
-      <i>Trends in Cognitive Sciences</i>, 20(9), 676–688. 
+    <div class="ref">
+      <div class="title">Risko & Gilbert (2016)</div>
+      Cognitive offloading theory in cognitive science.
       <br>
       <a href="https://doi.org/10.1016/j.tics.2016.07.002" target="_blank">
-        https://doi.org/10.1016/j.tics.2016.07.002
+        DOI link
       </a>
     </div>
 
-    <div class="ref-card">
-      Santrock, J. W. (2006). <i>Educational psychology</i> (7th ed.). McGraw Hill.
+    <div class="ref">
+      <div class="title">Santrock (2006)</div>
+      Educational psychology textbook.
     </div>
 
-    <div class="ref-card">
-      Schiefele, U. (2017). Classroom management and student motivation. 
-      <i>Teaching and Teacher Education</i>, 64, 115–126. 
+    <div class="ref">
+      <div class="title">Schiefele (2017)</div>
+      Teacher motivation and student motivation mediation.
       <br>
       <a href="https://doi.org/10.1016/j.tate.2017.02.004" target="_blank">
-        https://doi.org/10.1016/j.tate.2017.02.004
+        DOI link
       </a>
     </div>
 
-    <div class="ref-card">
-      Zheng, C., & Wang, Y. (2026). Generative AI in EFL contexts and cognitive dissonance. 
-      <i>Acta Psychologica</i>, 264, 106531. 
+    <div class="ref">
+      <div class="title">Zheng & Wang (2026)</div>
+      Generative AI + cognitive dissonance in EFL learning.
       <br>
       <a href="https://doi.org/10.1016/j.actpsy.2026.106531" target="_blank">
-        https://doi.org/10.1016/j.actpsy.2026.106531
+        DOI link
       </a>
     </div>
 
   </div>
 </div>
-
 <!-- ========================= -->
 <!-- MEMBERS -->
 <!-- ========================= -->
