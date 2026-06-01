@@ -70,37 +70,24 @@ header p{
 /* POSTER */
 /* ========================= */
 
-/* ========================= */
-/* POSTER VIEWER */
-/* ========================= */
-
-#poster-viewer{
-
-  width:100%;
-
-  height:85vh;
-
-  overflow:hidden;
-
-  background:#111;
-
-  border-radius:24px;
+.poster-container{
 
   position:relative;
 
-  cursor:grab;
+  margin:auto;
 
-  box-shadow:0 10px 40px rgba(0,0,0,.2);
+  width:90%;
+  max-width:1200px;
+
+  transition:.3s ease;
 
 }
 
-/* POSTER */
+.poster-container.zoomed{
 
-#posterContainer{
+  transform:scale(1.7);
 
-  width:fit-content;
-
-  margin:auto;
+  z-index:1000;
 
 }
 
@@ -108,19 +95,14 @@ header p{
 
 .poster{
 
-  width:auto;
+  width:100%;
 
-  height:95vh;
+  border-radius:20px;
 
-  max-width:none;
-
-  display:block;
-
-  user-select:none;
-
-  pointer-events:none;
+  box-shadow:0 10px 40px rgba(0,0,0,.25);
 
 }
+
 /* ========================= */
 /* BUTTONS */
 /* ========================= */
@@ -236,73 +218,9 @@ header p{
   display:block;
 
 }
-/* ========================= */
-/* HORIZONTAL SLIDER */
-/* ========================= */
 
-.slider-container{
-
-  overflow-x:auto;
-
-  padding-bottom:20px;
-
-  scroll-snap-type:x mandatory;
-
-}
-
-.slider{
-
-  display:flex;
-
-  gap:24px;
-
-  width:max-content;
-
-}
-
-.slide{
-
-  width:320px;
-
-  background:white;
-
-  padding:30px;
-
-  border-radius:20px;
-
-  box-shadow:0 10px 30px rgba(0,0,0,.08);
-
-  scroll-snap-align:start;
-
-  flex-shrink:0;
-
-  transition:.25s;
-
-}
-
-.slide:hover{
-
-  transform:translateY(-8px);
-
-}
-
-/* SCROLLBAR */
-
-.slider-container::-webkit-scrollbar{
-
-  height:12px;
-
-}
-
-.slider-container::-webkit-scrollbar-thumb{
-
-  background:#2962ff;
-
-  border-radius:999px;
-
-}
 </style>
-<script src="https://unpkg.com/@panzoom/panzoom/dist/panzoom.min.js"></script>
+
 </head>
 
 <body>
@@ -335,26 +253,13 @@ Double click the poster to zoom in.
 
 <section class="section">
 
-<h2 style="
-text-align:center;
-margin-bottom:30px;
-font-size:40px;
-">
-
-Interactive Poster Viewer
-
-</h2>
-
-<div id="poster-viewer">
-
-<div id="posterContainer">
+<div class="poster-container"
+id="posterContainer">
 
 <img
 src="poster.png"
 class="poster"
 />
-
-</div>
 
 </div>
 
@@ -417,65 +322,6 @@ cognitive engagement.
 <!-- ========================= -->
 <!-- REFERENCES -->
 <!-- ========================= -->
-<section class="section">
-
-<h2 style="margin-bottom:30px;">
-Research Highlights
-</h2>
-
-<div class="slider-container">
-
-<div class="slider">
-
-<div class="slide">
-
-<h3>Cognitive Offloading</h3>
-
-<p>
-AI externalizes cognitive tasks,
-reducing sustained mental engagement.
-</p>
-
-</div>
-
-<div class="slide">
-
-<h3>AI Accessibility</h3>
-
-<p>
-School-issued Chromebooks normalized
-daily AI usage among students.
-</p>
-
-</div>
-
-<div class="slide">
-
-<h3>Critical Thinking</h3>
-
-<p>
-Teachers emphasized supervised AI use
-to maintain analytical skills.
-</p>
-
-</div>
-
-<div class="slide">
-
-<h3>Future Concerns</h3>
-
-<p>
-Overreliance on AI may contribute
-to dependency in academic settings.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
 
 <section class="section">
 
@@ -542,6 +388,32 @@ id="assistant"
 <script>
 
 /* ========================= */
+/* POSTER ZOOM */
+/* ========================= */
+
+const poster =
+document.getElementById("posterContainer");
+
+const zoomOut =
+document.getElementById("zoomOut");
+
+poster.addEventListener("dblclick",()=>{
+
+poster.classList.add("zoomed");
+
+zoomOut.style.display = "block";
+
+});
+
+zoomOut.addEventListener("click",()=>{
+
+poster.classList.remove("zoomed");
+
+zoomOut.style.display = "none";
+
+});
+
+/* ========================= */
 /* ASSISTANT */
 /* ========================= */
 
@@ -556,65 +428,7 @@ assistant.addEventListener("click",()=>{
 assistantPopup.classList.toggle("active");
 
 });
-/* ========================= */
-/* PANZOOM */
-/* ========================= */
 
-const elem =
-document.getElementById('posterContainer');
-
-const panzoom =
-Panzoom(elem,{
-
-  maxScale:5,
-  minScale:1,
-
-  contain:'outside'
-
-});
-
-const parent =
-document.getElementById('poster-viewer');
-
-/* SCROLL ZOOM */
-
-parent.addEventListener(
-'wheel',
-panzoom.zoomWithWheel
-);
-
-/* DOUBLE CLICK ZOOM */
-
-parent.addEventListener(
-'dblclick',
-()=>{
-
-panzoom.zoomIn();
-
-}
-);
-
-/* DRAG */
-
-parent.addEventListener(
-'pointerdown',
-panzoom.handleDown
-);
-
-/* RESET BUTTON */
-
-const zoomOut =
-document.getElementById("zoomOut");
-
-zoomOut.style.display = "block";
-
-zoomOut.innerText = "Reset View";
-
-zoomOut.addEventListener("click",()=>{
-
-panzoom.reset();
-
-});
 </script>
 
 </body>
