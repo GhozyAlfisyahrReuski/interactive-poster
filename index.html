@@ -120,24 +120,27 @@ header p{
   background: #0039cb;
 }
 
-/* HOTSPOT TOOLTIP POPUP */
+/* HOTSPOT TOOLTIP POPUP (UPDATED FOR SEMI-TRANSPARENCY) */
 .hotspot-tooltip {
   position: absolute;
   bottom: 34px;
   left: 50%;
   transform: translateX(-50%) translateY(10px);
-  width: 280px; /* Slightly wider to support quotes gracefully */
-  background: rgba(0, 0, 0, 0.9);
+  width: 280px; 
+  background: rgba(20, 20, 20, 0.75); /* Translucent background */
+  backdrop-filter: blur(8px); /* Frosted glass effect to let background peek through */
+  -webkit-backdrop-filter: blur(8px);
   color: white;
   padding: 14px;
   border-radius: 8px;
   font-size: 13px;
   line-height: 1.45;
-  pointer-events: none; /* Crucial to prevent magnifier mouse layout thrashing */
+  pointer-events: none; 
   opacity: 0;
   transition: opacity 0.2s ease, transform 0.2s ease;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
   text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .hotspot:hover .hotspot-tooltip {
@@ -191,15 +194,9 @@ header p{
 }
 
 @keyframes float{
-  0%{
-    transform:translateY(0px);
-  }
-  50%{
-    transform:translateY(-10px);
-  }
-  100%{
-    transform:translateY(0px);
-  }
+  0%{ transform:translateY(0px); }
+  50%{ transform:translateY(-10px); }
+  100%{ transform:translateY(0px); }
 }
 
 /* POPUP */
@@ -387,6 +384,20 @@ header p{
       </div>
     </div>
 
+    <!-- RECOMMENDED HOTSPOT A: Chromebook Adoption Pipeline -->
+    <div class="hotspot" style="top: 51.5%; left: 24.0%;">
+      <div class="hotspot-tooltip">
+        <strong>Pipeline:</strong> The 2024 Chromebook distribution acted as an unintentional pipeline. It bridged general web access to students with normalized AI tools, already influencing workflows before formal school policies could keep up.
+      </div>
+    </div>
+
+    <!-- RECOMMENDED HOTSPOT B: SHINE Framework Integration -->
+    <div class="hotspot" style="top: 79.5%; left: 45.0%;">
+      <div class="hotspot-tooltip">
+        <strong>Human Authenticity Safeguards:</strong> The SHINE framework serves as a soft-skill-driven mitigation effort. By embedding deliberate project-based milestones and systematic self-reflection, it actively breaks passive "copy-paste" habit, recentering human cognitive effort.
+      </div>
+    </div>
+
     <div class="magnifier" id="magnifier"></div>
   </div>
 
@@ -571,10 +582,10 @@ header p{
 <section class="section">
   <div class="card">
     <h2>Research Members</h2>
-    <p><strong>Azhelie Rheinendra</strong> — Research</p>
-    <p><strong>Ghozy Alfisyahr Reuski</strong> — Literature Review</p>
-    <p><strong>Maria indirasari</strong> — Interview Analysis</p>
-    <p><strong>Nazira Alya</strong> — Design</p>
+    <p><strong>Azhelia Rheinendra</strong> —  2406452566</p>
+    <p><strong>Ghozy Alfisyahr Reuski</strong> — 2406452660</p>
+    <p><strong>Maria Indirasari Larasati</strong> — 2406365515</p>
+    <p><strong>Nazira Alya</strong> — 2406365490</p>
   </div>
 </section>
 
@@ -589,8 +600,8 @@ header p{
   <ul>
     <li>Scroll to explore</li>
     <li>Hover over poster to magnify</li>
-    <li>Hover over blue dots to see qualitative quotes</li>
-    <li>Double-click to Zoom In </li>
+    <li>Hover over dots to see qualitative quotes</li>
+    <li>Double click poster to zoom in</li>
     <li>Click Zoom Out to reset</li>
   </ul>
 </div>
