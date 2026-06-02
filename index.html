@@ -241,62 +241,47 @@ An interactive research poster exploring Artificial Intelligence in school setti
 
 <p>
 Scroll down to explore the project.
-Double click the poster to zoom in.
 </p>
 
 </header>
 
 <!-- ========================= -->
-<!-- POSTER VIEWER (UPGRADED) -->
+<!-- POSTER VIEWER (FIXED) -->
 <!-- ========================= -->
 
 <section class="section">
 
-  <!-- Controls -->
+  <!-- Controls (ONLY DOWNLOAD) -->
   <div style="text-align:center; margin-bottom:20px;">
 
-    <button onclick="zoomIn()">Zoom In +</button>
-    <button onclick="zoomOut()">Zoom Out -</button>
-    <button onclick="resetZoom()">Reset</button>
-
-    <a href="interactiveposter.pdf" download>
-      <button>Download PDF</button>
+    <a href="interactiveposter.png" download>
+      <button>Download PNG</button>
     </a>
-
-    <button onclick="toggleView()">Toggle PNG / PDF</button>
 
   </div>
 
   <!-- VIEWER -->
   <div class="poster-container" id="posterContainer">
 
-    <!-- PNG MODE (FIXED) -->
+    <!-- PNG ONLY -->
     <img
       src="interactiveposter.png"
       class="poster"
       id="posterImage"
     />
 
-    <!-- PDF MODE -->
-    <iframe
-      src="interactiveposter.pdf"
-      class="poster"
-      id="posterPDF"
-      style="display:none;"
-    ></iframe>
-
   </div>
 
-  <!-- SINGLE Zoom Out Button (KEEP ONLY THIS ONE) -->
+  <!-- Zoom Out Button (SINGLE + REQUIRED FOR JS) -->
   <button
     class="zoom-out"
     id="zoomOut"
+    style="display:none;"
   >
     Zoom Out
   </button>
 
 </section>
-
 <!-- ========================= -->
 <!-- METHODS -->
 <!-- ========================= -->
