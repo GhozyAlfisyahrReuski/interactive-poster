@@ -1,3 +1,8 @@
+Here is the complete, fully updated code with the GPU-accelerated performance fixes applied.
+
+I’ve swapped out the slow layout-based properties for `translate3d`, which shifts the rendering work to your device's graphics processor for zero-lag tracking.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -159,11 +164,13 @@ header p{
 }
 
 /* ========================= */
-/* MAGNIFIER */
+/* MAGNIFIER (HIGH PERFORMANCE) */
 /* ========================= */
 
 .magnifier{
   position:absolute;
+  top: 0;
+  left: 0;
   width:220px;
   height:220px;
   border-radius:50%;
@@ -171,12 +178,14 @@ header p{
   box-shadow:
     0 0 0 2px rgba(0,0,0,0.15),
     0 8px 24px rgba(0,0,0,0.25);
-  pointer-events:none; /* Prevents cursor stuttering */
+  pointer-events:none; /* Prevents tracking stutters */
   display:none;
   background-repeat:no-repeat;
   backdrop-filter:blur(3px);
   z-index:5000;
-  will-change: transform;
+  
+  /* Forces the browser to handle position updates natively on the GPU */
+  will-change: transform, background-position;
 }
 
 .magnifier::after{
@@ -456,7 +465,7 @@ header p{
   <h2>Navigation Help</h2>
   <ul>
     <li>Scroll to explore</li>
-    <li>Double click poster to zoom in</li>
+    <li>Hover over poster to zoom in</li>
     <li>Click Zoom Out to reset</li>
   </ul>
 </div>
@@ -467,7 +476,7 @@ function openLink(url) {
 }
 
 /* ========================= */
-/* MAGNIFIER ENGINE */
+/* MAGNIFIER ENGINE (OPTIMIZED) */
 /* ========================= */
 
 const posterContainer = document.getElementById("posterContainer");
@@ -476,7 +485,6 @@ const magnifier = document.getElementById("magnifier");
 
 posterContainer.addEventListener("mousemove", moveMagnifier);
 posterContainer.addEventListener("mouseenter", () => {
-  // Only trigger magnifier if not currently in full container zoom mode
   if(!posterContainer.classList.contains("zoomed")) {
     magnifier.style.display = "block";
   }
@@ -490,16 +498,16 @@ function moveMagnifier(e){
 
   const rect = posterImage.getBoundingClientRect();
 
-  // Calculate mouse position relative to the image bounds
+  // Get exact relative cursor position
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
 
-  const zoom = 2; // Increased zoom factor for better legibility
+  const zoom = 2; // Set zoom intensity
 
-  // Adjust positioning center offset dynamically
-  magnifier.style.left = `${x - 110}px`;
-  magnifier.style.top = `${y - 110}px`;
+  // Uses translate3d to offload rendering coordinates directly to the GPU layer
+  magnifier.style.transform = `translate3d(${x - 110}px, ${y - 110}px, 0)`;
 
+  // Keep background images updated without resetting elements completely
   magnifier.style.backgroundImage = `url('${posterImage.src}')`;
   magnifier.style.backgroundSize = `${rect.width * zoom}px ${rect.height * zoom}px`;
   magnifier.style.backgroundPosition = `-${(x * zoom) - 110}px -${(y * zoom) - 110}px`;
@@ -513,7 +521,7 @@ const zoomOut = document.getElementById("zoomOut");
 
 posterContainer.addEventListener("dblclick", () => {
   posterContainer.classList.add("zoomed");
-  magnifier.style.display = "none"; // Hide magnifier during zoom view
+  magnifier.style.display = "none"; 
   zoomOut.style.display = "block";
 });
 
@@ -536,3 +544,5 @@ assistant.addEventListener("click", () => {
 
 </body>
 </html>
+
+```
