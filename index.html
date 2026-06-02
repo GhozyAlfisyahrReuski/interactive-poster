@@ -247,20 +247,53 @@ Double click the poster to zoom in.
 </header>
 
 <!-- ========================= -->
-<!-- POSTER -->
+<!-- POSTER VIEWER (UPGRADED) -->
 <!-- ========================= -->
 
 <section class="section">
 
-<div class="poster-container"
-id="posterContainer">
+  <!-- Controls -->
+  <div style="text-align:center; margin-bottom:20px;">
 
-<img
-src="interactiveposter.png"
-class="poster"
-/>
+    <button onclick="zoomIn()">Zoom In +</button>
+    <button onclick="zoomOut()">Zoom Out -</button>
+    <button onclick="resetZoom()">Reset</button>
 
-</div>
+    <a href="interactiveposter.pdf" download>
+      <button>Download PDF</button>
+    </a>
+
+    <button onclick="toggleView()">Toggle PNG / PDF</button>
+
+  </div>
+
+  <!-- VIEWER -->
+  <div class="poster-container" id="posterContainer">
+
+    <!-- IMAGE MODE -->
+    <img
+      src="interactiveposter.png"
+      class="poster"
+      id="posterImage"
+    />
+
+    <!-- PDF MODE -->
+    <iframe
+      src="interactiveposter.pdf"
+      class="poster"
+      id="posterPDF"
+      style="display:none;"
+    ></iframe>
+
+  </div>
+
+  <!-- Zoom Out Button (your original one kept) -->
+  <button
+    class="zoom-out"
+    id="zoomOut"
+  >
+    Zoom Out
+  </button>
 
 </section>
 
