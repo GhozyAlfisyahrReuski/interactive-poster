@@ -1,6 +1,6 @@
-Here is the complete, fully updated code with the GPU-accelerated performance fixes applied.
+Here is your complete, production-ready code. I have integrated all four custom hotspot pins with their precise coordinate positions mapped directly from **Screenshot 2026-06-02 at 22.38.24.png**.
 
-I’ve swapped out the slow layout-based properties for `translate3d`, which shifts the rendering work to your device's graphics processor for zero-lag tracking.
+I also expanded the width of the tooltips slightly and added an explicit `pointer-events: none;` rule to the tooltip text container. This ensures that when a user hovers over a blue dot, the popup won't accidentally trigger a mouse conflict with your smooth, GPU-accelerated magnifier lens.
 
 ```html
 <!DOCTYPE html>
@@ -62,7 +62,7 @@ header p{
 }
 
 /* ========================= */
-/* POSTER */
+/* POSTER VIEW AND HOTSPOTS */
 /* ========================= */
 
 .poster-container{
@@ -85,6 +85,69 @@ header p{
   border-radius:20px;
   box-shadow:0 10px 40px rgba(0,0,0,.25);
   display: block;
+}
+
+/* HOTSPOT ELEMENT */
+.hotspot {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: #2962ff;
+  border: 3px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  z-index: 10;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+/* Pulse effect to capture attention */
+.hotspot::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  border: 2px solid #2962ff;
+  border-radius: 50%;
+  animation: hotspot-pulse 2s infinite;
+  opacity: 0;
+}
+
+@keyframes hotspot-pulse {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+.hotspot:hover {
+  transform: scale(1.2);
+  background: #0039cb;
+}
+
+/* HOTSPOT TOOLTIP POPUP */
+.hotspot-tooltip {
+  position: absolute;
+  bottom: 34px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  width: 280px; /* Slightly wider to support quotes gracefully */
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.45;
+  pointer-events: none; /* Crucial to prevent magnifier mouse layout thrashing */
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  text-align: left;
+}
+
+.hotspot:hover .hotspot-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* ========================= */
@@ -164,7 +227,7 @@ header p{
 }
 
 /* ========================= */
-/* MAGNIFIER (HIGH PERFORMANCE) */
+/* MAGNIFIER */
 /* ========================= */
 
 .magnifier{
@@ -178,13 +241,11 @@ header p{
   box-shadow:
     0 0 0 2px rgba(0,0,0,0.15),
     0 8px 24px rgba(0,0,0,0.25);
-  pointer-events:none; /* Prevents tracking stutters */
+  pointer-events:none; 
   display:none;
   background-repeat:no-repeat;
   backdrop-filter:blur(3px);
   z-index:5000;
-  
-  /* Forces the browser to handle position updates natively on the GPU */
   will-change: transform, background-position;
 }
 
@@ -270,33 +331,84 @@ header p{
 
 <body>
 
+<!-- ========================= -->
+<!-- HEADER -->
+<!-- ========================= -->
+
 <header>
   <h1>What do teachers and students think of AI?</h1>
   <p>An interactive research poster exploring Artificial Intelligence in school settings.</p>
   <p>Scroll down to explore the project.</p>
 </header>
 
+<!-- ========================= -->
+<!-- POSTER VIEWER -->
+<!-- ========================= -->
+
 <section class="section">
 
+  <!-- Controls (ONLY DOWNLOAD) -->
   <div style="text-align:center; margin-bottom:20px;">
     <a href="interactiveposter.png" download>
       <button style="padding: 10px 20px; border-radius: 8px; border: none; background: #2962ff; color: white; cursor: pointer;">Download PNG</button>
     </a>
   </div>
 
+  <!-- VIEWER CONTAINER -->
   <div class="poster-container" id="posterContainer">
+    <!-- PNG ONLY -->
     <img src="interactiveposter.png" class="poster" id="posterImage" alt="Research Poster" />
+    
+    <!-- HOTSPOT 1: Mandatory Coding Class -->
+    <div class="hotspot" style="top: 51.5%; left: 39.5%;">
+      <div class="hotspot-tooltip">
+        <strong>Teacher D's Perspective:</strong> "The school integrated a mandatory coding class into the 10th-grade curriculum. I believe this specific subject introduces a much more intense involvement of AI into the students' workflow."
+      </div>
+    </div>
+
+    <!-- HOTSPOT 2: Cognitive Offloading -->
+    <div class="hotspot" style="top: 64.0%; left: 83.5%;">
+      <div class="hotspot-tooltip">
+        <strong>Student on Cognitive Offloading:</strong> "Using AI makes me feel like the work isn't purely mine anymore, since it acts like a helper. I notice I don't understand the material as well because when AI just drops the answers, you skip the actual process. It makes me feel genuinely guilty."
+      </div>
+    </div>
+
+    <!-- HOTSPOT 3: Cognitive Dissonance -->
+    <div class="hotspot" style="top: 64.0%; left: 63.5%;">
+      <div class="hotspot-tooltip">
+        <strong>Student on Dissonance:</strong> "While AI offers immediate assistance, traditional manual research forces us to engage with books and enhances our literacy. I experience internal conflict because relying on AI feels like the final output isn't authentically my own work."
+      </div>
+    </div>
+
+    <!-- HOTSPOT 4: Techno-Optimism -->
+    <div class="hotspot" style="top: 56.5%; left: 81.5%;">
+      <div class="hotspot-tooltip">
+        <strong style="display:block; margin-bottom:4px;">Teacher M on Educational Transformation:</strong>
+        <ul style="margin:0; padding-left:14px; text-align:left; font-size:11.5px;">
+          <li><strong>Engagement:</strong> AI brings excitement into teaching, making classrooms far more enjoyable and students more enthusiastic.</li>
+          <li><strong>Efficiency:</strong> It serves as a creative assistant for lesson plans, enabling teachers to adapt quickly to new curriculum demands.</li>
+          <li><strong>Modernization:</strong> As the world evolves, schools must advance technologically, normalizing AI as an encouraging productivity tool.</li>
+        </ul>
+      </div>
+    </div>
+
     <div class="magnifier" id="magnifier"></div>
   </div>
 
+  <!-- Zoom Out Button -->
   <button class="zoom-out" id="zoomOut">
     Zoom Out
   </button>
 
 </section>
   
+<!-- ========================= -->
+<!-- ALL CONTENT -->
+<!-- ========================= -->
+
 <section class="section">
 
+  <!-- METHODS -->
   <div class="card">
     <h2>Methods</h2>
     <p>
@@ -304,6 +416,7 @@ header p{
     </p>
   </div>
 
+  <!-- MAIN FINDINGS -->
   <div class="card">
     <h2>Main Findings</h2>
     <p>
@@ -314,15 +427,16 @@ header p{
     </p>
   </div>
 
+  <!-- ANALYSIS -->
   <div class="card">
     <h2>Analysis and Critical Reflection</h2>
     <p>
-      The interviews revealed concerns about AI misuse when users are not fully prepared to engage critically. Although efficient, AI reliance may reduce essential learning skills. Several theories explain this normalization process.
+      The interviews revealed concerns regarding potential AI misuse when teachers and students are not fully prepared to use AI critically and responsibly. Although efficient, reliance on AI may reduce essential learning skills. Several theories explain this normalization process.
     </p>
 
     <h3>Techno-Optimism</h3>
     <p>
-      The findings suggest techno-optimistic attitudes toward digital learning technologies (Danaher, 2022), reflected in increasing openness toward AI-supported education.
+      The findings suggest techno-optimistic attitudes toward digital learning technologies, which refers to the belief that technological advancement generally improves quality of life, while potentially leading to overreliance on technological solutions (Danaher, 2022). Aligned with this perspective, the school shows an inclination toward technological integration in education, as is evident in Chromebooks’ presence and coding courses.
     </p>
 
     <h3>Lack of Consensus</h3>
@@ -341,6 +455,7 @@ header p{
     </p>
   </div>
 
+  <!-- FUTURE CONSEQUENCES -->
   <div class="card">
     <h2>Future Consequences</h2>
     <ul>
@@ -350,6 +465,7 @@ header p{
     </ul>
   </div>
 
+  <!-- CONCLUSION + SHINE -->
   <div class="card">
     <h2>Conclusion and Recommendation</h2>
     <p>
@@ -374,6 +490,10 @@ header p{
 
 </section>
   
+<!-- ========================= -->
+<!-- REFERENCES -->
+<!-- ========================= -->
+
 <section class="section">
   <div class="a3-poster">
     <div class="header">
@@ -449,6 +569,10 @@ header p{
   </div>
 </section>
 
+<!-- ========================= -->
+<!-- MEMBERS -->
+<!-- ========================= -->
+
 <section class="section">
   <div class="card">
     <h2>Research Members</h2>
@@ -459,17 +583,26 @@ header p{
   </div>
 </section>
 
+<!-- ========================= -->
+<!-- ASSISTANT -->
+<!-- ========================= -->
+
 <img src="assistant.gif" id="assistant" alt="Assistant Mascot" />
 
 <div id="assistant-popup">
-  <h2>Navigation Help</h2>
+  <h2>🧭 Lost in the poster? Here's your guide!</h2>
   <ul>
     <li>Scroll to explore</li>
-    <li>Hover over poster to zoom in</li>
+    <li>Hover over poster to magnify</li>
+    <li>Hover over blue dots to see qualitative quotes</li>
+    <li>Double-click to Zoom In </li>
     <li>Click Zoom Out to reset</li>
   </ul>
 </div>
 
+<!-- ========================= -->
+<!-- JAVASCRIPT GLOBAL LOGIC -->
+<!-- ========================= -->
 <script>
 function openLink(url) {
   window.open(url, "_blank");
@@ -482,10 +615,11 @@ function openLink(url) {
 const posterContainer = document.getElementById("posterContainer");
 const posterImage = document.getElementById("posterImage");
 const magnifier = document.getElementById("magnifier");
+const hotspots = document.querySelectorAll(".hotspot");
 
 posterContainer.addEventListener("mousemove", moveMagnifier);
-posterContainer.addEventListener("mouseenter", () => {
-  if(!posterContainer.classList.contains("zoomed")) {
+posterContainer.addEventListener("mouseenter", (e) => {
+  if(!posterContainer.classList.contains("zoomed") && !e.target.classList.contains("hotspot")) {
     magnifier.style.display = "block";
   }
 });
@@ -493,21 +627,30 @@ posterContainer.addEventListener("mouseleave", () => {
   magnifier.style.display = "none";
 });
 
+// Hide magnifier when hovering over hot zones to allow tooltips to be read easily
+hotspots.forEach(hotspot => {
+  hotspot.addEventListener("mouseenter", () => {
+    magnifier.style.display = "none";
+  });
+  hotspot.addEventListener("mouseleave", () => {
+    if(!posterContainer.classList.contains("zoomed")) {
+      magnifier.style.display = "block";
+    }
+  });
+});
+
 function moveMagnifier(e){
   if(posterContainer.classList.contains("zoomed")) return;
 
   const rect = posterImage.getBoundingClientRect();
 
-  // Get exact relative cursor position
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
 
-  const zoom = 2; // Set zoom intensity
+  const zoom = 2; 
 
-  // Uses translate3d to offload rendering coordinates directly to the GPU layer
   magnifier.style.transform = `translate3d(${x - 110}px, ${y - 110}px, 0)`;
 
-  // Keep background images updated without resetting elements completely
   magnifier.style.backgroundImage = `url('${posterImage.src}')`;
   magnifier.style.backgroundSize = `${rect.width * zoom}px ${rect.height * zoom}px`;
   magnifier.style.backgroundPosition = `-${(x * zoom) - 110}px -${(y * zoom) - 110}px`;
@@ -523,11 +666,15 @@ posterContainer.addEventListener("dblclick", () => {
   posterContainer.classList.add("zoomed");
   magnifier.style.display = "none"; 
   zoomOut.style.display = "block";
+  
+  hotspots.forEach(h => h.style.display = "none");
 });
 
 zoomOut.addEventListener("click", () => {
   posterContainer.classList.remove("zoomed");
   zoomOut.style.display = "none";
+  
+  hotspots.forEach(h => h.style.display = "block");
 });
 
 /* ========================= */
