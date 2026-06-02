@@ -628,19 +628,31 @@ function moveMagnifier(e){
   const y =
   e.clientY - rect.top;
 
-  const zoom = 2.5;
+  /* REAL IMAGE SCALE */
+  const scaleX =
+    posterImage.naturalWidth /
+    posterImage.width;
+
+  const scaleY =
+    posterImage.naturalHeight /
+    posterImage.height;
 
   magnifier.style.left =
-  `${x - 110}px`;
+    `${x - 110}px`;
 
   magnifier.style.top =
-  `${y - 110}px`;
+    `${y - 110}px`;
 
   magnifier.style.backgroundImage =
-  `url(${posterImage.src})`;
+    `url(${posterImage.src})`;
+
+  magnifier.style.backgroundSize =
+    `${posterImage.width * scaleX}px
+     ${posterImage.height * scaleY}px`;
 
   magnifier.style.backgroundPosition =
-  `-${x * zoom - 110}px -${y * zoom - 110}px`;
+    `-${x * scaleX - 110}px
+     -${y * scaleY - 110}px`;
 
 }
 </script>
