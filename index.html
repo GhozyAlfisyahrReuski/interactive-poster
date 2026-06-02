@@ -587,6 +587,14 @@ function openLink(url) {
 /* ========================= */
 /* MAGNIFIER */
 /* ========================= */
+<script>
+function openLink(url) {
+  window.open(url, "_blank");
+}
+
+/* ========================= */
+/* MAGNIFIER */
+/* ========================= */
 
 const posterImage =
 document.getElementById("posterImage");
@@ -601,7 +609,7 @@ posterImage.addEventListener(
 
 posterImage.addEventListener(
   "mouseenter",
-  ()=>{
+  () => {
 
     magnifier.style.display =
     "block";
@@ -610,7 +618,7 @@ posterImage.addEventListener(
 
 posterImage.addEventListener(
   "mouseleave",
-  ()=>{
+  () => {
 
     magnifier.style.display =
     "none";
@@ -628,6 +636,7 @@ function moveMagnifier(e){
   const y =
   e.clientY - rect.top;
 
+  /* SMOOTH ZOOM */
   const zoom = 1.5;
 
   magnifier.style.left =
@@ -640,63 +649,13 @@ function moveMagnifier(e){
     `url(${posterImage.src})`;
 
   magnifier.style.backgroundSize =
-    `${posterImage.width * zoom}px
-     ${posterImage.height * zoom}px`;
+    `${posterImage.width * zoom}px ${posterImage.height * zoom}px`;
 
   magnifier.style.backgroundPosition =
-    `-${x * zoom - 110}px
-     -${y * zoom - 110}px`;
+    `-${x * zoom - 110}px -${y * zoom - 110}px`;
 
 }
-  magnifier.style.backgroundImage =
-    `url(${posterImage.src})`;
-
-  magnifier.style.backgroundSize =
-    `${posterImage.width * zoom}px
-     ${posterImage.height * zoom}px`;
-
-  magnifier.style.backgroundPosition =
-    `-${x * zoom - 110}px
-     -${y * zoom - 110}px`;
-
-}
-
-  const rect =
-  posterImage.getBoundingClientRect();
-
-  const x =
-  e.clientX - rect.left;
-
-  const y =
-  e.clientY - rect.top;
-
-  /* REAL IMAGE SCALE */
-  const scaleX =
-    posterImage.naturalWidth /
-    posterImage.width;
-
-  const scaleY =
-    posterImage.naturalHeight /
-    posterImage.height;
-
-  magnifier.style.left =
-    `${x - 110}px`;
-
-  magnifier.style.top =
-    `${y - 110}px`;
-
-  magnifier.style.backgroundImage =
-    `url(${posterImage.src})`;
-
-  magnifier.style.backgroundSize =
-    `${posterImage.width * scaleX}px
-     ${posterImage.height * scaleY}px`;
-
-  magnifier.style.backgroundPosition =
-    `-${x * scaleX - 110}px
-     -${y * scaleY - 110}px`;
-
-}
+</script>
 </script>
 <!-- ========================= -->
 <!-- MEMBERS -->
